@@ -35,6 +35,7 @@ import 'package:dart_dev/src/tasks/coverage/cli.dart';
 import 'package:dart_dev/src/tasks/examples/cli.dart';
 import 'package:dart_dev/src/tasks/format/cli.dart';
 import 'package:dart_dev/src/tasks/init/cli.dart';
+import 'package:dart_dev/src/tasks/serve/cli.dart';
 import 'package:dart_dev/src/tasks/test/cli.dart';
 
 import 'package:dart_dev/src/version.dart' show printVersion;
@@ -59,6 +60,7 @@ dev(List<String> args) async {
   registerTask(new ExamplesCli(), config.examples);
   registerTask(new FormatCli(), config.format);
   registerTask(new InitCli(), config.init);
+  registerTask(new ServeCli(), config.serve);
   registerTask(new TestCli(), config.test);
 
   await _run(args);
