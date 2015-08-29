@@ -4,8 +4,7 @@ import 'dart:async';
 
 import 'package:args/args.dart';
 
-import 'package:dart_dev/util.dart' show reporter;
-
+import 'package:dart_dev/src/reporter.dart';
 import 'package:dart_dev/src/tasks/proxy_server/api.dart';
 import 'package:dart_dev/src/tasks/proxy_server/config.dart';
 import 'package:dart_dev/src/tasks/cli.dart';
@@ -65,9 +64,13 @@ class ProxyServerCli extends TaskCli {
         proxyServerPort: proxyServerPort
     );
 
-//    reporter.logGroup(task.pubServeCommand, outputStream: task.pubServeOutput);
+    print('Started proxy server, listening on $proxyServerHostname:$proxyServerPort');
+    print('API Context: $apiContext');
+    print('API Endpoint: $apiUrl:$apiPort');
+    print('Pub server: $pubServerHostname:$pubServerPort');
+
+    reporter.logGroup(task.dartCommand, outputStream: task.proxyServerOutput);
     await task.done;
-    reporter.logGroup(task.dartiumCommand, outputStream: task.dartiumOutput);
     return task.successful ? new CliResult.success() : new CliResult.fail();
   }
 }

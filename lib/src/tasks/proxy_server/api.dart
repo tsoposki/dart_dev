@@ -7,13 +7,13 @@ import 'package:dart_dev/src/tasks/task.dart';
 
 ProxyServerTask startProxyServer(
     {
-    String pubServerHostname: defaultPubServerHostname,
-    int pubServerPort: defaultPubServerPort,
-    String apiUrl: defaultApiUrl,
-    int apiPort: defaultApiPort,
-    String apiContext: defaultApiContext,
-    String proxyServerHostname: defaultProxyServerHostname,
-    int proxyServerPort: defaultProxyServerPort
+      String pubServerHostname: defaultPubServerHostname,
+      int pubServerPort: defaultPubServerPort,
+      String apiUrl: defaultApiUrl,
+      int apiPort: defaultApiPort,
+      String apiContext: defaultApiContext,
+      String proxyServerHostname: defaultProxyServerHostname,
+      int proxyServerPort: defaultProxyServerPort
     }) {
 
   var dartExecutable = 'dart';
@@ -28,11 +28,11 @@ ProxyServerTask startProxyServer(
     '--$PROXY_SERVER_PORT=$proxyServerPort'
   ];
 
-  var dartiumExecutable = 'chrome';
-  var dartiumArgs = [
-    'http://$proxyServerHostname:$proxyServerPort',
-    '--checked'
-  ];
+//  var dartiumExecutable = 'chrome';
+//  var dartiumArgs = [
+//    'http://$proxyServerHostname:$proxyServerPort',
+//    '--checked'
+//  ];
 
 //  var pubServeExecutable = 'pub';
 //  var pubServeArgs = [
@@ -42,16 +42,16 @@ ProxyServerTask startProxyServer(
 //  ];
 
   TaskProcess proxyServerProcess = new TaskProcess(dartExecutable, proxyServerArgs);
-  TaskProcess dartiumProcess = new TaskProcess(dartiumExecutable, dartiumArgs);
+//  TaskProcess dartiumProcess = new TaskProcess(dartiumExecutable, dartiumArgs);
 //  TaskProcess pubServeProcess = new TaskProcess(pubServeExecutable, pubServeArgs);
 
   ProxyServerTask task = new ProxyServerTask(
       '$dartExecutable ${proxyServerArgs.join(' ')}',
-      '$dartiumExecutable ${dartiumArgs.join(' ')}',
+//      '$dartiumExecutable ${dartiumArgs.join(' ')}',
 //      '$pubServeExecutable ${pubServeArgs.join(' ')}',
       Future.wait([
-        proxyServerProcess.done,
-        dartiumProcess.done
+        proxyServerProcess.done
+//        dartiumProcess.done
 //        pubServeProcess.done
       ]));
 
@@ -61,8 +61,18 @@ ProxyServerTask startProxyServer(
 //    task.successful = code <= 0;
 //  });
 
-  dartiumProcess.stdout.listen(task._dartiumOutput.add);
-  dartiumProcess.stderr.listen(task._dartiumOutput.addError);
+//  dartiumProcess.stdout.listen(task._dartiumOutput.add);
+//  dartiumProcess.stderr.listen(task._dartiumOutput.addError);
+
+  proxyServerProcess.stdout.listen(task._proxyServerOutput.add);
+  proxyServerProcess.stderr.listen((_err) {
+    print(_err);
+//    task._proxyServerOutput.addError;
+  });
+
+  proxyServerProcess.exitCode.then((code) {
+    task.successful = code <= 0;
+  });
 
   return task;
 }
@@ -70,28 +80,29 @@ ProxyServerTask startProxyServer(
 class ProxyServerTask extends Task {
   final Future done;
   final String dartCommand;
-  final String dartiumCommand;
+//  final String dartiumCommand;
 
 //  final String pubServeCommand;
 
   StreamController<String> _proxyServerOutput = new StreamController();
-  StreamController<String> _dartiumOutput = new StreamController();
+//  StreamController<String> _dartiumOutput = new StreamController();
 
 //  StreamController<String> _pubServeOutput = new StreamController();
 
-  ProxyServerTask(String this.dartCommand, String this.dartiumCommand,
+  ProxyServerTask(String this.dartCommand,
+//                  String this.dartiumCommand,
                   //                  String this.pubServeCommand,
                   Future this.done) {
     done.then((_) {
       _proxyServerOutput.close();
-      _dartiumOutput.close();
+//      _dartiumOutput.close();
 //      _pubServeOutput.close();
     });
   }
 
   Stream<String> get proxyServerOutput => _proxyServerOutput.stream;
 
-  Stream<String> get dartiumOutput => _dartiumOutput.stream;
+//  Stream<String> get dartiumOutput => _dartiumOutput.stream;
 
 //  Stream<String> get pubServeOutput => _pubServeOutput.stream;
 }

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:dart_dev/util.dart' show TaskProcess;
 import 'package:dart_dev/src/tasks/serve/config.dart';
 import 'package:dart_dev/src/tasks/task.dart';
+import 'package:dart_dev/src/tasks/config.dart';
 
 ExamplesTask startPubServe(
     {String hostname: defaultHostname, int port: defaultPort}) {
@@ -16,6 +17,15 @@ ExamplesTask startPubServe(
     '--port=$port'
   ];
 
+  var dartiumExecutable = 'chrome';
+  var dartiumArgs = [
+    'http://:' + config.proxyServer.proxyServerHostname + ':' + config.proxyServer.proxyServerPort.toString(),
+    '--checked'
+  ];
+
+
+  print('SERVE AT http://:' + config.proxyServer.proxyServerHostname + ':' + config.proxyServer.proxyServerPort.toString());
+
   TaskProcess pubServeProcess = new TaskProcess(pubServeExecutable, pubServeArgs);
 
   ExamplesTask task = new ExamplesTask(
@@ -25,7 +35,10 @@ ExamplesTask startPubServe(
       ]));
 
   pubServeProcess.stdout.listen(task._pubServeOutput.add);
-  pubServeProcess.stderr.listen(task._pubServeOutput.addError);
+  pubServeProcess.stderr.listen((_err) {
+    print('$_err');
+  });
+
   pubServeProcess.exitCode.then((code) {
     task.successful = code <= 0;
   });
