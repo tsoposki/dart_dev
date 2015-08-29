@@ -18,6 +18,7 @@ import 'package:dart_dev/src/tasks/analyze/config.dart';
 import 'package:dart_dev/src/tasks/copy_license/config.dart';
 import 'package:dart_dev/src/tasks/coverage/config.dart';
 import 'package:dart_dev/src/tasks/examples/config.dart';
+import 'package:dart_dev/src/tasks/proxy_server/config.dart';
 import 'package:dart_dev/src/tasks/format/config.dart';
 import 'package:dart_dev/src/tasks/init/config.dart';
 import 'package:dart_dev/src/tasks/test/config.dart';
@@ -29,6 +30,7 @@ class Config {
   CopyLicenseConfig copyLicense = new CopyLicenseConfig();
   CoverageConfig coverage = new CoverageConfig();
   ExamplesConfig examples = new ExamplesConfig();
+  ProxyServerConfig proxyServer = new ProxyServerConfig();
   FormatConfig format = new FormatConfig();
   InitConfig init = new InitConfig();
   TestConfig test = new TestConfig();
