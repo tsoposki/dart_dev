@@ -33,6 +33,7 @@ import 'package:dart_dev/src/tasks/analyze/cli.dart';
 import 'package:dart_dev/src/tasks/copy_license/cli.dart';
 import 'package:dart_dev/src/tasks/coverage/cli.dart';
 import 'package:dart_dev/src/tasks/examples/cli.dart';
+import 'package:dart_dev/src/tasks/serve/cli.dart';
 import 'package:dart_dev/src/tasks/proxy_server/cli.dart';
 import 'package:dart_dev/src/tasks/format/cli.dart';
 import 'package:dart_dev/src/tasks/init/cli.dart';
@@ -58,6 +59,7 @@ dev(List<String> args) async {
   registerTask(new CopyLicenseCli(), config.copyLicense);
   registerTask(new CoverageCli(), config.coverage);
   registerTask(new ExamplesCli(), config.examples);
+  registerTask(new ServeCli(), config.serve);
   registerTask(new ProxyServerCli(), config.proxyServer);
   registerTask(new FormatCli(), config.format);
   registerTask(new InitCli(), config.init);
