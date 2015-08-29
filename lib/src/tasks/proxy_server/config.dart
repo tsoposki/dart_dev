@@ -11,9 +11,9 @@ const String API_CONTEXT = 'apiContext';
 const String PROXY_SERVER_HOSTNAME = 'proxyServerHostname';
 const String PROXY_SERVER_PORT = 'proxyServerPort';
 
-const String defaultPubServerHostname = 'localhost';
+const String defaultPubServerHostname = 'http://localhost';
 const int defaultPubServerPort = 9152;
-const String defaultApiUrl = 'http://www.example.com/api';
+const String defaultApiUrl = 'https://bittrex.com/api/v1.1/public/';
 const int defaultApiPort = 80;
 const String defaultApiContext = '/api';
 const String defaultProxyServerHostname = 'localhost';

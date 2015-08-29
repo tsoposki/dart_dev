@@ -40,7 +40,9 @@ void main(List<String> args) {
 
   var myRouter = router()
     ..add(results['$API_CONTEXT'], null, proxyHandler(results['$API_URL'] + ":" + results['$API_PORT']), exactMatch: false)
-    ..add('/', null, proxyHandler(results['$PUB_SERVER_HOSTNAME'] + ":" + results['$PUB_SERVER_PORT']));
+    ..add('/', null, proxyHandler(results['$PUB_SERVER_HOSTNAME'] + ":" + results['$PUB_SERVER_PORT']), exactMatch: false);
 
   io.serve(myRouter.handler, results['$PROXY_SERVER_HOSTNAME'], proxyServerPort);
+
+  print('Started proxy server on $PROXY_SERVER_HOSTNAME:$PROXY_SERVER_PORT');
 }
