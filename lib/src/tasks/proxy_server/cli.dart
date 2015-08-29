@@ -14,7 +14,8 @@ import 'package:dart_dev/src/tasks/config.dart';
 class ProxyServerCli extends TaskCli {
   final ArgParser argParser = new ArgParser()
     ..addOption(PUB_SERVER_HOSTNAME,
-  defaultsTo: defaultPubServerHostname, help: 'The pub server host name.')
+  defaultsTo: defaultPubServerHostname,
+  help: 'The pub server host name.')
     ..addOption(PUB_SERVER_PORT,
   defaultsTo: defaultPubServerPort.toString(),
   help: 'The pub server port.')
@@ -34,7 +35,7 @@ class ProxyServerCli extends TaskCli {
   defaultsTo: defaultProxyServerPort.toString(),
   help: 'The proxy server port.');
 
-  final String command = 'proxy_server';
+  final String command = 'proxy-server';
 
   Future<CliResult> run(ArgResults parsedArgs) async {
     String pubServerHostname = TaskCli.valueOf(PUB_SERVER_HOSTNAME, parsedArgs, config.proxyServer.pubServerHostname);
@@ -64,7 +65,7 @@ class ProxyServerCli extends TaskCli {
         proxyServerPort: proxyServerPort
     );
 
-    reporter.logGroup(task.pubServeCommand, outputStream: task.pubServeOutput);
+//    reporter.logGroup(task.pubServeCommand, outputStream: task.pubServeOutput);
     await task.done;
     reporter.logGroup(task.dartiumCommand, outputStream: task.dartiumOutput);
     return task.successful ? new CliResult.success() : new CliResult.fail();
