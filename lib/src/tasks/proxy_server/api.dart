@@ -19,18 +19,18 @@ ProxyServerTask startProxyServer(
   var dartExecutable = 'dart';
   var proxyServerArgs = [
     '$PROXY_SERVER_PATH',
-    '$PUB_SERVER_HOSTNAME=$pubServerHostname',
-    '$PUB_SERVER_PORT=$pubServerPort',
-    '$API_URL=$apiUrl',
-    '$API_PORT=$apiPort',
-    '$API_CONTEXT=$apiContext',
-    '$PROXY_SERVER_HOSTNAME=$proxyServerHostname',
-    '$PROXY_SERVER_PORT=$proxyServerPort'
+    '--$PUB_SERVER_HOSTNAME=$pubServerHostname',
+    '--$PUB_SERVER_PORT=$pubServerPort',
+    '--$API_URL=$apiUrl',
+    '--$API_PORT=$apiPort',
+    '--$API_CONTEXT=$apiContext',
+    '--$PROXY_SERVER_HOSTNAME=$proxyServerHostname',
+    '--$PROXY_SERVER_PORT=$proxyServerPort'
   ];
 
-  var dartiumExecutable = 'dartium';
+  var dartiumExecutable = 'chrome';
   var dartiumArgs = [
-    'http://$proxyServerHostname:$proxyServerPort'
+    'http://$proxyServerHostname:$proxyServerPort',
     '--checked'
   ];
 
@@ -46,7 +46,7 @@ ProxyServerTask startProxyServer(
   TaskProcess dartiumProcess = new TaskProcess(dartiumExecutable, dartiumArgs);
 
   ProxyServerTask task = new ProxyServerTask(
-      '$dartExecutable ${proxyServerArgs.join(' ')}'
+      '$dartExecutable ${proxyServerArgs.join(' ')}',
       '$dartiumExecutable ${dartiumArgs.join(' ')}',
       '$pubServeExecutable ${pubServeArgs.join(' ')}',
       Future.wait([
